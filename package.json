@@ -1,10 +1,10 @@
 {
-  "name": "embed-visualizer",
-  "author": "leovoel",
+  "name": "discord-visualizer",
+  "author": "Douile",
+  "contributors": ["leovoel"],
   "license": "MIT",
   "version": "0.1.0",
-  "private": true,
-  "homepage": "https://leovoel.github.io/embed-visualizer/",
+  "homepage": "https://github.com/Douile/discord-visualizer",
   "devDependencies": {
     "@babel/cli": "^7.17",
     "@babel/core": "^7.16",
@@ -15,24 +15,24 @@
     "@babel/plugin-transform-runtime": "^7.16",
     "@babel/preset-env": "^7.16",
     "@babel/preset-react": "^7.16",
-    "@babel/register": "^7.17.7",
+    "@babel/register": "^7.17",
     "@babel/runtime": "^7.16",
-    "rimraf": "^2.5.4"
-  },
-  "dependencies": {
-    "ajv": "^4.11.2",
-    "codemirror": "^5.23.0",
-    "highlight.js": "^9.9.0",
-    "lodash.debounce": "^4.0.8",
-    "moment": "^2.17.1",
-    "react": "^15.4.2",
-    "react-addons-css-transition-group": "^15.4.2",
-    "react-color": "^2.13.8",
-    "react-dom": "^15.4.2",
-    "simple-markdown": "^0.2.1",
-    "twemoji": "^2.2.3"
+    "ajv": "^8.11",
+    "codemirror": "^5.23",
+    "highlight.js": "^11.5",
+    "lodash.debounce": "^4.0",
+    "moment": "^2.17",
+    "react": "^15.4",
+    "react-addons-css-transition-group": "^15.6",
+    "react-color": "^2.13",
+    "react-dom": "^15.4",
+    "simple-markdown": "^0.2",
+    "twemoji": "^2.2"
   },
   "scripts": {
     "build": "npx babel src -d lib"
-  }
+  },
+  "files": ["lib/**/*"],
+  "main": "lib/index.js",
+  "bin": { "discord-visualizer": "./lib/index.js" }
 }
