@@ -4,22 +4,20 @@ import Embed from './embed';
 import { parse, parseAllowLinks, jumboify } from './markdown';
 
 
-const MessageTimestamp = React.createClass({
-  getDefaultProps() {
-    return { compactMode: false };
-  },
+class MessageTimestamp extends React.Component {
+  static defaultProps = { compactMode: false }
 
   componentDidMount() {
     this.timer = setInterval(() => this.tick(), 1000 * 60);
-  },
+  }
 
   componentWillUnmount() {
     clearInterval(this.timer);
-  },
+  }
 
   tick() {
     this.forceUpdate();
-  },
+  }
 
   render() {
     const { compactMode } = this.props;
@@ -27,17 +25,17 @@ const MessageTimestamp = React.createClass({
     const computed = compactMode ? m.format('LT') : m.calendar();
 
     return <span className='timestamp'>{computed}</span>;
-  },
-});
+  }
+}
 
-const MessageBody = ({ compactMode, username, content, webhookMode }) => {
+const MessageBody = ({ compactMode, username, content, webhookMode, bot }) => {
   if (compactMode) {
     return (
       <div className='markup'>
         <MessageTimestamp compactMode={compactMode} />
         <span className='username-wrapper v-btm'>
           <strong className='user-name'>{username}</strong>
-          <span className='bot-tag'>BOT</span>
+          {bot !== false ? <span className='bot-tag'>BOT</span> : ''}
         </span>
         <span className='highlight-separator'> - </span>
         <span className='message-content'>{content && parse(content, true, {}, jumboify)}</span>
@@ -54,7 +52,7 @@ const MessageBody = ({ compactMode, username, content, webhookMode }) => {
   return null;
 };
 
-const CozyMessageHeader = ({ compactMode, username }) => {
+const CozyMessageHeader = ({ compactMode, username, bot }) => {
   if (compactMode) {
     return null;
   }
@@ -63,7 +61,7 @@ const CozyMessageHeader = ({ compactMode, username }) => {
     <h2 style={{ lineHeight: '16px' }}>
       <span className='username-wrapper v-btm'>
         <strong className='user-name'>{username}</strong>
-        <span className='bot-tag'>BOT</span>
+        {bot !== false ? <span className='bot-tag'>BOT</span> : ''}
       </span>
       <span className='highlight-separator'> - </span>
       <MessageTimestamp compactMode={compactMode} />
@@ -110,24 +108,21 @@ const DiscordViewWrapper = ({ darkTheme, children }) => {
   );
 };
 
-const DiscordView = React.createClass({
-  getDefaultProps() {
-    return {
-      // TODO: make these two configurable?
-      username: 'Discord Bot',
+class DiscordView extends React.Component {
+  static defaultProps = {
+    messages: [],
+    defaults: {
+      username: 'Discord bot',
       avatar_url: 'https://cdn.discordapp.com/embed/avatars/0.png',
-
-      // hehe
-      darkTheme: true,
-      compactMode: false
-    };
-  },
+    },
+    darkTheme: true,
+    compactMode: false
+  }
 
   render() {
     const {
       compactMode, darkTheme, webhookMode,
-      username, avatar_url, error,
-      data: { content, embed, embeds }
+      error, messages, defaults,
     } = this.props;
 
     const bgColor = darkTheme ? 'bg-discord-dark' : 'bg-discord-light';
@@ -137,29 +132,32 @@ const DiscordView = React.createClass({
       <div className={cls}>
         <ErrorHeader error={error} />
         <DiscordViewWrapper darkTheme={darkTheme}>
-          <div className={`message-group hide-overflow ${compactMode ? 'compact' : ''}`}>
-            <Avatar url={avatar_url} compactMode={compactMode} />
-            <div className='comment'>
-              <div className='message first'>
-                <CozyMessageHeader username={username} compactMode={compactMode} />
-                <div className='message-text'>
-                  <MessageBody
-                    content={content}
-                    username={username}
-                    compactMode={compactMode}
-                    webhookMode={webhookMode}
-                  />
+          {messages.map(({username, avatar_url, content, embed, embeds, bot }, index) => {
+            return <div className={`message-group hide-overflow ${compactMode ? 'compact' : ''}`} key={index}>
+              <Avatar url={avatar_url || defaults.avatar_url} compactMode={compactMode} />
+              <div className='comment'>
+                <div className='message first'>
+                  <CozyMessageHeader username={username || defaults.username} compactMode={compactMode} bot={bot}/>
+                  <div className='message-text'>
+                    <MessageBody
+                      content={content}
+                      username={username || defaults.username}
+                      compactMode={compactMode}
+                      webhookMode={webhookMode}
+                      bot={bot}
+                    />
+                  </div>
+                  {embed ? <Embed {...embed} /> : (embeds && embeds.map((e, i) => <Embed key={i} {...e} />))}
                 </div>
-                {embed ? <Embed {...embed} /> : (embeds && embeds.map((e, i) => <Embed key={i} {...e} />))}
-              </div>
 
-            </div>
-          </div>
+              </div>
+            </div>;
+          })}
         </DiscordViewWrapper>
       </div>
     );
-  },
-});
+  }
+}
 
 
 export default DiscordView;

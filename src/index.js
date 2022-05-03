@@ -1,13 +1,23 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/app';
+import ReactDOM from 'react-dom/server';
+import DiscordView from './components/discordview';
 
-import './css/index.css';
-import './css/discord.css';
-import 'highlight.js/styles/solarized-dark.css';
+const arg = process.argv.find((v) => v.trim().startsWith('['));
 
+let data = [{ username: 'Example', content: 'Example message' }];
+if (arg) {
+  data = JSON.parse(arg);
+}
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+console.error('Compiling', data);
+
+const e = <DiscordView 
+  messages={data}
+  webhookMode={false}
+  darkTheme={true}
+  compactMode={false}
+    />;
+
+const r = ReactDOM.renderToString(e);
+
+console.log(r);

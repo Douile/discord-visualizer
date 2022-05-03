@@ -1,32 +1,21 @@
-Embed Visualizer
-================
+# Discord visualizer
 
-![demo gif](http://i.imgur.com/2wAb2d3.gif)
+Compile Discord messages to HTML on the command line. Based on
+[embed-visualizer][embed-visualizer].
 
-### Code snippet generators
+## Usage
 
-The general structure for them looks like this:
-
-```js
-export default {
-  // for displaying on the <select> dropdown
-  name: 'Cool Discord Lib (Cool Programming Language)',
-
-  // for highlight.js
-  // see https://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases
-  language: 'coolprogramminglanguage',
-
-  // actual generator
-  // data is just a javascript object that looks like this:
-  // { "content": "message content...", "embed": { ... } }
-  generateFrom(data) {
-    ...
-  },
-};
+```shell
+node ./lib/index.js "[{\"username\":\"Test\",\"content\":\"Test\"}]"
 ```
 
-Currently, we don't really take in account "webhook mode" since most libraries don't
-really support that directly. If in the future most of them end up supporting it,
-we can start passing that down to the `generateFrom` function, so that it can emit something else.
+You need the CSS header files
 
-[embed docs]: https://discordapp.com/developers/docs/resources/channel#embed-object
+```html
+<link rel="stylesheet" href="https://raw.githubusercontent.com/Douile/discord-visualizer/master/css/discord.css">
+<link rel="stylesheet" href="https://raw.githubusercontent.com/Douile/discord-visualizer/master/css/codemirror-one-dark.css">
+<link rel="stylesheet" href="https://raw.githubusercontent.com/Douile/discord-visualizer/master/css/tachyons.css">
+```
+
+
+[embed-visualizer]: https://github.com/leovoel/embed-visualizer
