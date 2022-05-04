@@ -30,10 +30,10 @@
     "@babel/plugin-transform-runtime": "^7.16",
     "@babel/preset-env": "^7.16",
     "@babel/preset-react": "^7.16",
-    "@babel/register": "^7.17",
-    "@babel/runtime": "^7.16"
+    "@babel/register": "^7.17"
   },
   "dependencies": {
+    "@babel/runtime": "^7.16",
     "ajv": "^8.11",
     "codemirror": "^5.23",
     "highlight.js": "^11.5",
