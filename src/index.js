@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import DiscordView from './components/discordview';
