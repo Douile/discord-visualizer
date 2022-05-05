@@ -346,7 +346,7 @@ function createRules(r) {
       ...codeBlock,
       react(node, recurseOutput, state) {
         if (node.lang && hljs.getLanguage(node.lang) != null) {
-          const highlightedBlock = hljs.highlight(node.lang, node.content, true);
+          const highlightedBlock = hljs.highlight(node.content, { language: node.lang, ignoreIllegals: true});
 
           return (
             <pre key={state.key}>
