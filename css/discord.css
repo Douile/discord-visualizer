@@ -537,7 +537,8 @@
 
 .message-group h2 {
   margin: 0;
-  padding: 0
+  padding: 0;
+  border: none
 }
 
 .message-group h2 strong {
