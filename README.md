@@ -12,9 +12,9 @@ node ./lib/index.js "[{\"username\":\"Test\",\"content\":\"Test\"}]"
 You need the CSS header files
 
 ```html
-<link rel="stylesheet" href="https://raw.githubusercontent.com/Douile/discord-visualizer/master/css/discord.css">
-<link rel="stylesheet" href="https://raw.githubusercontent.com/Douile/discord-visualizer/master/css/codemirror-one-dark.css">
-<link rel="stylesheet" href="https://raw.githubusercontent.com/Douile/discord-visualizer/master/css/tachyons.css">
+<link rel="stylesheet" href="https://cdn.rawgit.com/Douile/discord-visualizer/master/css/discord.css">
+<link rel="stylesheet" href="https://cdn.rawgit.com/Douile/discord-visualizer/master/css/codemirror-one-dark.css">
+<link rel="stylesheet" href="https://cdn.rawgit.com/Douile/discord-visualizer/master/css/tachyons.css">
 ```
 
 
